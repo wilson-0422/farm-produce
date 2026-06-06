@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}物流追踪列表 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🚚 物流追踪</h2>
+    <a href="/logistics/track" class="btn btn-primary">实时追踪</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>分销渠道</th>
+            <th>司机</th>
+            <th>车牌号</th>
+            <th>出发时间</th>
+            <th>预计到达</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for l in logistics %}
+        <tr>
+            <td>{{ l.id }}</td>
+            <td>{{ l.channel_name }}</td>
+            <td>{{ l.driver_name }}</td>
+            <td>{{ l.vehicle_plate }}</td>
+            <td>{{ l.departure_time }}</td>
+            <td>{{ l.estimated_arrival }}</td>
+            <td>
+                {% if l.status == "pending" %}<span class="badge badge-warning">待出发</span>{% endif %}
+                {% if l.status == "in_transit" %}<span class="badge badge-primary">运输中</span>{% endif %}
+                {% if l.status == "delivered" %}<span class="badge badge-success">已送达</span>{% endif %}
+            </td>
+            <td>
+                <a href="/logistics/{{ l.id }}" class="btn btn-sm">查看</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

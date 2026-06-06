@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}编辑收成 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📋 编辑收成登记</h2>
+    <a href="/harvests" class="btn btn-outline">返回列表</a>
+</div>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="/harvests/{{ harvest.id }}/edit" class="form-card">
+    <div class="form-group">
+        <label for="product_name">产品名称</label>
+        <input type="text" id="product_name" name="product_name" required value="{{ harvest.product_name }}">
+    </div>
+    <div class="form-group">
+        <label for="quantity">数量</label>
+        <input type="text" id="quantity" name="quantity" required value="{{ harvest.quantity }}">
+    </div>
+    <div class="form-group">
+        <label for="unit">单位</label>
+        <select id="unit" name="unit">
+            <option value="公斤" {% if harvest.unit == "公斤" %}selected{% endif %}>公斤</option>
+            <option value="斤" {% if harvest.unit == "斤" %}selected{% endif %}>斤</option>
+            <option value="吨" {% if harvest.unit == "吨" %}selected{% endif %}>吨</option>
+            <option value="箱" {% if harvest.unit == "箱" %}selected{% endif %}>箱</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="price_per_unit">单价（元）</label>
+        <input type="text" id="price_per_unit" name="price_per_unit" required value="{{ harvest.price_per_unit }}">
+    </div>
+    <div class="form-group">
+        <label for="harvest_date">收成日期</label>
+        <input type="date" id="harvest_date" name="harvest_date" required value="{{ harvest.harvest_date }}">
+    </div>
+    <div class="form-group">
+        <label for="description">描述</label>
+        <textarea id="description" name="description" rows="3">{{ harvest.description }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">保存修改</button>
+</form>
+{% endblock %}

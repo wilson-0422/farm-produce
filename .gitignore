@@ -1,0 +1,4 @@
+target/
+farm_produce.db
+*.db-shm
+*.db-wal

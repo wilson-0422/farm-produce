@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}仓储入库列表 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🏭 仓储入库</h2>
+    <a href="/warehouse/intake" class="btn btn-primary">+ 新增入库</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>产品名称</th>
+            <th>仓管员</th>
+            <th>库位</th>
+            <th>入库数量</th>
+            <th>入库日期</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in entries %}
+        <tr>
+            <td>{{ e.id }}</td>
+            <td><a href="/warehouse/{{ e.id }}">{{ e.product_name }}</a></td>
+            <td>{{ e.keeper_name }}</td>
+            <td>{{ e.location }}</td>
+            <td>{{ e.quantity_stored }}</td>
+            <td>{{ e.intake_date }}</td>
+            <td>
+                {% if e.status == "stored" %}<span class="badge badge-success">在库</span>{% endif %}
+                {% if e.status == "shipped" %}<span class="badge badge-info">已出库</span>{% endif %}
+                {% if e.status == "out" %}<span class="badge badge-danger">已出库</span>{% endif %}
+            </td>
+            <td>
+                <a href="/warehouse/{{ e.id }}" class="btn btn-sm">查看</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

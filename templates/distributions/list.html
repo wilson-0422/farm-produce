@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}分销订单列表 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🛒 分销接单</h2>
+    <a href="/distributions/create" class="btn btn-primary">+ 新增订单</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>渠道名称</th>
+            <th>联系人</th>
+            <th>产品名称</th>
+            <th>数量</th>
+            <th>单价</th>
+            <th>总金额</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for d in distributions %}
+        <tr>
+            <td>{{ d.id }}</td>
+            <td><a href="/distributions/{{ d.id }}">{{ d.channel_name }}</a></td>
+            <td>{{ d.contact_person }}</td>
+            <td>{{ d.product_name }}</td>
+            <td>{{ d.quantity }}</td>
+            <td>¥{{ d.unit_price }}</td>
+            <td>¥{{ d.total_amount }}</td>
+            <td>
+                {% if d.status == "pending" %}<span class="badge badge-warning">待确认</span>{% endif %}
+                {% if d.status == "confirmed" %}<span class="badge badge-info">已确认</span>{% endif %}
+                {% if d.status == "shipping" %}<span class="badge badge-primary">配送中</span>{% endif %}
+                {% if d.status == "completed" %}<span class="badge badge-success">已完成</span>{% endif %}
+                {% if d.status == "cancelled" %}<span class="badge badge-danger">已取消</span>{% endif %}
+            </td>
+            <td>
+                <a href="/distributions/{{ d.id }}" class="btn btn-sm">查看</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

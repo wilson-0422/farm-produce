@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}首页 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>🌾 产地农产品产销协同平台</h1>
+    <p>连接农户、仓储、分销与物流，实现农产品产销一体化管理</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-value">{{ harvest_count }}</div>
+        <div class="stat-label">收成登记</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">🏭</div>
+        <div class="stat-value">{{ warehouse_count }}</div>
+        <div class="stat-label">仓储入库</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-value">{{ dist_count }}</div>
+        <div class="stat-label">分销订单</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">🚚</div>
+        <div class="stat-value">{{ in_transit }}</div>
+        <div class="stat-label">在途物流</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value">¥{{ total_sales | round }}</div>
+        <div class="stat-label">销售总额</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-value">¥{{ pending_amount | round }}</div>
+        <div class="stat-label">待结算金额</div>
+    </div>
+</div>
+
+<div class="features-grid">
+    <a href="/harvests" class="feature-card">
+        <h3>📋 收成登记</h3>
+        <p>农户登记农产品收成信息，包括品种、数量、价格等</p>
+    </a>
+    <a href="/warehouse" class="feature-card">
+        <h3>🏭 仓储入库</h3>
+        <p>管理农产品入库、存储位置和库存状态</p>
+    </a>
+    <a href="/distributions" class="feature-card">
+        <h3>🛒 分销接单</h3>
+        <p>分销渠道下单采购，管理订单和交付状态</p>
+    </a>
+    <a href="/logistics" class="feature-card">
+        <h3>🚚 物流追踪</h3>
+        <p>实时追踪物流运输状态，掌握配送进度</p>
+    </a>
+    <a href="/settlements" class="feature-card">
+        <h3>💰 对账结算</h3>
+        <p>管理农户与分销商之间的账务结算</p>
+    </a>
+    <a href="/dashboard" class="feature-card">
+        <h3>📊 数据看板</h3>
+        <p>全方位数据统计与分析，辅助决策</p>
+    </a>
+</div>
+{% endblock %}

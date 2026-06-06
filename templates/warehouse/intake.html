@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}新增入库 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🏭 新增入库</h2>
+    <a href="/warehouse" class="btn btn-outline">返回列表</a>
+</div>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="/warehouse/intake" class="form-card">
+    <div class="form-group">
+        <label for="harvest_id">关联收成</label>
+        <select id="harvest_id" name="harvest_id" required>
+            <option value="">请选择收成记录</option>
+            {% for h in harvests %}
+            <option value="{{ h.id }}">{{ h.product_name }} - {{ h.farmer_name }} ({{ h.quantity }}{{ h.unit }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="location">库位</label>
+        <input type="text" id="location" name="location" required placeholder="如：A区-01号冷库">
+    </div>
+    <div class="form-group">
+        <label for="quantity_stored">入库数量</label>
+        <input type="text" id="quantity_stored" name="quantity_stored" required placeholder="如：5000">
+    </div>
+    <div class="form-group">
+        <label for="intake_date">入库日期</label>
+        <input type="date" id="intake_date" name="intake_date" required>
+    </div>
+    <div class="form-group">
+        <label for="notes">备注</label>
+        <textarea id="notes" name="notes" rows="3" placeholder="入库备注信息"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">确认入库</button>
+</form>
+{% endblock %}

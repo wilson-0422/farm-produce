@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}对账结算列表 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>💰 对账结算</h2>
+    <a href="/settlements/create" class="btn btn-primary">+ 新增结算</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>农户</th>
+            <th>金额</th>
+            <th>支付方式</th>
+            <th>状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in settlements %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.farmer_name }}</td>
+            <td>¥{{ s.amount }}</td>
+            <td>{{ s.payment_method }}</td>
+            <td>
+                {% if s.status == "pending" %}<span class="badge badge-warning">待支付</span>{% endif %}
+                {% if s.status == "paid" %}<span class="badge badge-success">已支付</span>{% endif %}
+                {% if s.status == "disputed" %}<span class="badge badge-danger">有争议</span>{% endif %}
+            </td>
+            <td>{{ s.created_at }}</td>
+            <td>
+                <a href="/settlements/{{ s.id }}" class="btn btn-sm">查看</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

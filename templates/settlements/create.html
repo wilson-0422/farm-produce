@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}新增结算 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>💰 新增结算</h2>
+    <a href="/settlements" class="btn btn-outline">返回列表</a>
+</div>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="/settlements" class="form-card">
+    <div class="form-group">
+        <label for="distribution_id">关联分销订单</label>
+        <select id="distribution_id" name="distribution_id" required>
+            <option value="">请选择分销订单</option>
+            {% for d in distributions %}
+            <option value="{{ d.id }}">{{ d.channel_name }} - {{ d.product_name }} (¥{{ d.total_amount }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="harvest_id">关联收成记录</label>
+        <select id="harvest_id" name="harvest_id" required>
+            <option value="">请选择收成记录</option>
+            {% for h in harvests %}
+            <option value="{{ h.id }}">{{ h.product_name }} - {{ h.farmer_name }} ({{ h.quantity }}{{ h.unit }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="amount">结算金额（元）</label>
+        <input type="text" id="amount" name="amount" required placeholder="如：30000">
+    </div>
+    <div class="form-group">
+        <label for="payment_method">支付方式</label>
+        <select id="payment_method" name="payment_method" required>
+            <option value="银行转账">银行转账</option>
+            <option value="微信支付">微信支付</option>
+            <option value="支付宝">支付宝</option>
+            <option value="现金">现金</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="notes">备注</label>
+        <textarea id="notes" name="notes" rows="3" placeholder="结算备注信息"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">提交结算</button>
+</form>
+{% endblock %}

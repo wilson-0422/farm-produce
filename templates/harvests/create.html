@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}新增收成 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📋 新增收成登记</h2>
+    <a href="/harvests" class="btn btn-outline">返回列表</a>
+</div>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="/harvests" class="form-card">
+    <div class="form-group">
+        <label for="product_name">产品名称</label>
+        <input type="text" id="product_name" name="product_name" required placeholder="如：红富士苹果">
+    </div>
+    <div class="form-group">
+        <label for="quantity">数量</label>
+        <input type="text" id="quantity" name="quantity" required placeholder="如：5000">
+    </div>
+    <div class="form-group">
+        <label for="unit">单位</label>
+        <select id="unit" name="unit">
+            <option value="公斤">公斤</option>
+            <option value="斤">斤</option>
+            <option value="吨">吨</option>
+            <option value="箱">箱</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="price_per_unit">单价（元）</label>
+        <input type="text" id="price_per_unit" name="price_per_unit" required placeholder="如：6.5">
+    </div>
+    <div class="form-group">
+        <label for="harvest_date">收成日期</label>
+        <input type="date" id="harvest_date" name="harvest_date" required>
+    </div>
+    <div class="form-group">
+        <label for="description">描述</label>
+        <textarea id="description" name="description" rows="3" placeholder="产品描述信息"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">提交登记</button>
+</form>
+{% endblock %}

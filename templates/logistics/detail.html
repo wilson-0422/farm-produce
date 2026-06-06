@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}物流详情 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🚚 物流详情</h2>
+    <a href="/logistics" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="detail-card">
+    <div class="detail-row">
+        <span class="detail-label">分销渠道</span>
+        <span class="detail-value">{{ logistic.channel_name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">司机姓名</span>
+        <span class="detail-value">{{ logistic.driver_name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">司机电话</span>
+        <span class="detail-value">{{ logistic.driver_phone }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">车牌号</span>
+        <span class="detail-value">{{ logistic.vehicle_plate }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">出发时间</span>
+        <span class="detail-value">{{ logistic.departure_time }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">预计到达</span>
+        <span class="detail-value">{{ logistic.estimated_arrival }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">实际到达</span>
+        <span class="detail-value">{% if logistic.actual_arrival %}{{ logistic.actual_arrival }}{% else %}暂无{% endif %}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">状态</span>
+        <span class="detail-value">
+            {% if logistic.status == "pending" %}<span class="badge badge-warning">待出发</span>{% endif %}
+            {% if logistic.status == "in_transit" %}<span class="badge badge-primary">运输中</span>{% endif %}
+            {% if logistic.status == "delivered" %}<span class="badge badge-success">已送达</span>{% endif %}
+        </span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">备注</span>
+        <span class="detail-value">{{ logistic.notes }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">创建时间</span>
+        <span class="detail-value">{{ logistic.created_at }}</span>
+    </div>
+</div>
+{% endblock %}

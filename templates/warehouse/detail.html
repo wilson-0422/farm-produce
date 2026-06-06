@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}仓储详情 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🏭 仓储详情</h2>
+    <a href="/warehouse" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="detail-card">
+    <div class="detail-row">
+        <span class="detail-label">产品名称</span>
+        <span class="detail-value">{{ entry.product_name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">仓管员</span>
+        <span class="detail-value">{{ entry.keeper_name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">库位</span>
+        <span class="detail-value">{{ entry.location }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">入库数量</span>
+        <span class="detail-value">{{ entry.quantity_stored }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">入库日期</span>
+        <span class="detail-value">{{ entry.intake_date }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">状态</span>
+        <span class="detail-value">
+            {% if entry.status == "stored" %}<span class="badge badge-success">在库</span>{% endif %}
+            {% if entry.status == "shipped" %}<span class="badge badge-info">已出库</span>{% endif %}
+            {% if entry.status == "out" %}<span class="badge badge-danger">已出库</span>{% endif %}
+        </span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">备注</span>
+        <span class="detail-value">{{ entry.notes }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">创建时间</span>
+        <span class="detail-value">{{ entry.created_at }}</span>
+    </div>
+</div>
+{% endblock %}

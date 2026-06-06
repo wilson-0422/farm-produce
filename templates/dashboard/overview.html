@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}数据看板 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<h2>📊 数据看板</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-value">{{ harvest_count }}</div>
+        <div class="stat-label">收成登记总数</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">⚖️</div>
+        <div class="stat-value">{{ total_quantity | round }} 公斤</div>
+        <div class="stat-label">收成总量</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">🏭</div>
+        <div class="stat-value">{{ warehouse_count }}</div>
+        <div class="stat-label">仓储入库数</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-value">{{ dist_count }}</div>
+        <div class="stat-label">分销订单数</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value">¥{{ total_sales | round }}</div>
+        <div class="stat-label">销售总额</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-value">{{ pending_settlements }}</div>
+        <div class="stat-label">待结算笔数</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">🚚</div>
+        <div class="stat-value">{{ in_transit }}</div>
+        <div class="stat-label">在途物流</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">💳</div>
+        <div class="stat-value">¥{{ pending_amount | round }}</div>
+        <div class="stat-label">待结算金额</div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>最近收成登记</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>产品名称</th>
+                <th>农户</th>
+                <th>数量</th>
+                <th>单价</th>
+                <th>状态</th>
+                <th>登记时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in recent_harvests %}
+            <tr>
+                <td><a href="/harvests/{{ h.id }}">{{ h.product_name }}</a></td>
+                <td>{{ h.farmer_name }}</td>
+                <td>{{ h.quantity }} {{ h.unit }}</td>
+                <td>¥{{ h.price_per_unit }}/{{ h.unit }}</td>
+                <td>
+                    {% if h.status == "pending" %}<span class="badge badge-warning">待入库</span>{% endif %}
+                    {% if h.status == "warehoused" %}<span class="badge badge-success">已入库</span>{% endif %}
+                    {% if h.status == "cancelled" %}<span class="badge badge-danger">已取消</span>{% endif %}
+                </td>
+                <td>{{ h.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

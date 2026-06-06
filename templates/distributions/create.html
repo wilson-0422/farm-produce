@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}新增分销订单 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🛒 新增分销订单</h2>
+    <a href="/distributions" class="btn btn-outline">返回列表</a>
+</div>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="/distributions" class="form-card">
+    <div class="form-group">
+        <label for="channel_name">渠道名称</label>
+        <input type="text" id="channel_name" name="channel_name" required placeholder="如：永辉超市采购部">
+    </div>
+    <div class="form-group">
+        <label for="contact_person">联系人</label>
+        <input type="text" id="contact_person" name="contact_person" required placeholder="如：刘经理">
+    </div>
+    <div class="form-group">
+        <label for="contact_phone">联系电话</label>
+        <input type="text" id="contact_phone" name="contact_phone" required placeholder="如：13900001001">
+    </div>
+    <div class="form-group">
+        <label for="product_name">产品名称</label>
+        <input type="text" id="product_name" name="product_name" required placeholder="如：红富士苹果">
+    </div>
+    <div class="form-group">
+        <label for="quantity">数量</label>
+        <input type="text" id="quantity" name="quantity" required placeholder="如：2000">
+    </div>
+    <div class="form-group">
+        <label for="unit_price">单价（元）</label>
+        <input type="text" id="unit_price" name="unit_price" required placeholder="如：8.0">
+    </div>
+    <button type="submit" class="btn btn-primary">提交订单</button>
+</form>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}结算详情 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>💰 结算详情</h2>
+    <a href="/settlements" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="detail-card">
+    <div class="detail-row">
+        <span class="detail-label">农户</span>
+        <span class="detail-value">{{ settlement.farmer_name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">关联分销单ID</span>
+        <span class="detail-value"><a href="/distributions/{{ settlement.distribution_id }}">{{ settlement.distribution_id }}</a></span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">关联收成ID</span>
+        <span class="detail-value"><a href="/harvests/{{ settlement.harvest_id }}">{{ settlement.harvest_id }}</a></span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">结算金额</span>
+        <span class="detail-value">¥{{ settlement.amount }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">支付方式</span>
+        <span class="detail-value">{{ settlement.payment_method }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">状态</span>
+        <span class="detail-value">
+            {% if settlement.status == "pending" %}<span class="badge badge-warning">待支付</span>{% endif %}
+            {% if settlement.status == "paid" %}<span class="badge badge-success">已支付</span>{% endif %}
+            {% if settlement.status == "disputed" %}<span class="badge badge-danger">有争议</span>{% endif %}
+        </span>
+    </div>
+    {% if settlement.paid_at %}
+    <div class="detail-row">
+        <span class="detail-label">支付时间</span>
+        <span class="detail-value">{{ settlement.paid_at }}</span>
+    </div>
+    {% endif %}
+    <div class="detail-row">
+        <span class="detail-label">备注</span>
+        <span class="detail-value">{{ settlement.notes }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">创建时间</span>
+        <span class="detail-value">{{ settlement.created_at }}</span>
+    </div>
+</div>
+{% endblock %}

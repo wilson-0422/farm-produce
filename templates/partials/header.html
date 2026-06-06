@@ -1,0 +1,30 @@
+<header class="header">
+    <div class="header-inner">
+        <a href="/" class="logo">🌾 产地农产品产销协同平台</a>
+        <nav class="nav">
+            <a href="/" class="nav-link {% if current_page == 'home' %}active{% endif %}">首页</a>
+            <a href="/harvests" class="nav-link {% if current_page == 'harvests' %}active{% endif %}">收成登记</a>
+            <a href="/warehouse" class="nav-link {% if current_page == 'warehouse' %}active{% endif %}">仓储入库</a>
+            <a href="/distributions" class="nav-link {% if current_page == 'distributions' %}active{% endif %}">分销接单</a>
+            <a href="/logistics" class="nav-link {% if current_page == 'logistics' %}active{% endif %}">物流追踪</a>
+            <a href="/settlements" class="nav-link {% if current_page == 'settlements' %}active{% endif %}">对账结算</a>
+            <a href="/dashboard" class="nav-link {% if current_page == 'dashboard' %}active{% endif %}">数据看板</a>
+        </nav>
+        <div class="user-area">
+            {% if user %}
+            <span class="user-name">{{ user.name }}</span>
+            <span class="user-role">
+                {% if user.role == "farmer" %}农户{% endif %}
+                {% if user.role == "warehouse" %}仓管{% endif %}
+                {% if user.role == "distribution" %}分销{% endif %}
+                {% if user.role == "logistics" %}物流{% endif %}
+                {% if user.role == "admin" %}管理员{% endif %}
+            </span>
+            <a href="/auth/logout" class="btn btn-sm">退出</a>
+            {% else %}
+            <a href="/auth/login" class="btn btn-sm">登录</a>
+            <a href="/auth/register" class="btn btn-sm btn-outline">注册</a>
+            {% endif %}
+        </div>
+    </div>
+</header>

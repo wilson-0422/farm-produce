@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}收成登记列表 - 产地农产品产销协同平台{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📋 收成登记</h2>
+    <a href="/harvests/create" class="btn btn-primary">+ 新增收成</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>产品名称</th>
+            <th>农户</th>
+            <th>数量</th>
+            <th>单价</th>
+            <th>收成日期</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for h in harvests %}
+        <tr>
+            <td>{{ h.id }}</td>
+            <td><a href="/harvests/{{ h.id }}">{{ h.product_name }}</a></td>
+            <td>{{ h.farmer_name }}</td>
+            <td>{{ h.quantity }} {{ h.unit }}</td>
+            <td>¥{{ h.price_per_unit }}/{{ h.unit }}</td>
+            <td>{{ h.harvest_date }}</td>
+            <td>
+                {% if h.status == "pending" %}<span class="badge badge-warning">待入库</span>{% endif %}
+                {% if h.status == "warehoused" %}<span class="badge badge-success">已入库</span>{% endif %}
+                {% if h.status == "cancelled" %}<span class="badge badge-danger">已取消</span>{% endif %}
+            </td>
+            <td>
+                <a href="/harvests/{{ h.id }}" class="btn btn-sm">查看</a>
+                <a href="/harvests/{{ h.id }}/edit" class="btn btn-sm">编辑</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
